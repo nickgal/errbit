@@ -8,7 +8,7 @@
 [coveralls-url]:https://coveralls.io/r/errbit/errbit
 [gemnasium-img-url]:https://gemnasium.com/errbit/errbit.png
 [gemnasium-url]:https://gemnasium.com/errbit/errbit
-[heroku-deploy-url]:https://heroku.com/deploy?template=https://github.com/errbit/errbit/tree/master
+[heroku-deploy-url]:https://heroku.com/deploy?template=https://github.com/nickgal/errbit/tree/master
 
 ### The open source, self-hosted error catcher
 
