@@ -13,6 +13,5 @@
     "SMTP_SERVER": "smtp.sendgrid.net"
   },
   "addons": [
-    "mongolab:sandbox"
   ]
 }
