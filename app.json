@@ -13,8 +13,6 @@
     "SMTP_SERVER": "smtp.sendgrid.net"
   },
   "addons": [
-    "mongolab:sandbox",
-    "scheduler:standard",
-    "sendgrid:starter"
+    "mongolab:sandbox"
   ]
 }
