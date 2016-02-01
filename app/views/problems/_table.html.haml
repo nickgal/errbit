@@ -23,7 +23,8 @@
             - else
               %span.environment= link_to problem.environment, app_path(problem.app, :environment => problem.environment)
           %td.message
-            = link_to problem.message, app_problem_path(problem.app, problem), title: problem.message
+            = link_to app_problem_path(problem.app, problem), title: problem.message do
+              = "#{problem.error_class} : #{problem.message}"
             %em= problem.where
             - if problem.comments_count > 0
               - comment = problem.comments.last
