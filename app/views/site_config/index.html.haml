@@ -36,4 +36,8 @@
         = g.check_box :environment_name
         = g.label :environment_name, 'Environment name'
 
+      %div
+        = g.label :patterns, 'Regex patterns to replace with (one per line)'
+        = g.text_area :patterns
+
   %div.buttons= f.submit 'Update Config'

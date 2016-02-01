@@ -22,6 +22,7 @@ class SiteConfigController < ApplicationController
         :backtrace_lines,
         :component,
         :action,
-        :environment_name)
+        :environment_name,
+        :patterns)
   end
 end

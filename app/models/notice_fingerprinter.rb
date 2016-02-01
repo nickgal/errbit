@@ -9,6 +9,7 @@ class NoticeFingerprinter
   field :action, default: true, type: Boolean
   field :environment_name, default: true, type: Boolean
   field :source, type: String
+  field :patterns, type: String
 
   embedded_in :app
   embedded_in :site_config
@@ -27,6 +28,21 @@ class NoticeFingerprinter
       material << backtrace.lines.slice(0, backtrace_lines)
     end
 
-    Digest::MD5.hexdigest(material.map(&:to_s).join)
+    material = material.map(&:to_s)
+    if patterns.present?
+      regex_patterns = patterns.split("\r\n").map{ |p| Regexp.new(p) }
+      material = material.map do |string|
+        regex_patterns.each do |pattern|
+          match = string.match(pattern)
+          next if match.nil?
+          match.captures.each do |capture|
+            string.remove! capture
+          end
+        end
+        string
+      end
+    end
+
+    Digest::MD5.hexdigest(material.join)
   end
 end
