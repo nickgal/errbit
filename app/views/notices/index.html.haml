@@ -36,6 +36,7 @@
     %th User agent
     %th app_version
     %th HTTP_X_FORWARDED_FOR
+    %th Params
   - @notices.each do |notice|
     %tr
       %td
@@ -48,5 +49,6 @@
       %td= notice.user_agent_string
       %td= notice.app_version
       %td= notice.env_vars['HTTP_X_FORWARDED_FOR']
+      %td= notice.params
       -# %td= notice.inspect
 = paginate @notices
