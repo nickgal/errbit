@@ -6,6 +6,24 @@ class NoticesController < ApplicationController
 
   rescue_from ParamsError, with: :bad_params
 
+  expose(:app_scope) do
+    params[:app_id] ? App.where(_id: params[:app_id]) : App.all
+  end
+
+  expose(:app) do
+    AppDecorator.new app_scope.find(params[:app_id])
+  end
+
+  expose(:problem) do
+    ProblemDecorator.new app.problems.find(params[:problem_id])
+  end
+
+
+  def index
+    @notices = problem.object.notices.reverse_ordered.
+      page(params[:page]).per(50)
+  end
+
   def create
     # params[:data] if the notice came from a GET request, raw_post if it came via POST
     report = ErrorReport.new(notice_params)

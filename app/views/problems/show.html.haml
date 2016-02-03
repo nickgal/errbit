@@ -24,6 +24,8 @@
         %i.fa.fa-calendar
         iCal
   %span>= link_to 'up', (request.env['HTTP_REFERER'] ? :back : app_problems_path(app)), :class => 'up'
+  %span>= link_to 'notices', polymorphic_path([app, problem, :notices])
+
   %br
   = render "issue_tracker_links"
 
