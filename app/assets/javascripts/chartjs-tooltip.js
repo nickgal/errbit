@@ -1,5 +1,5 @@
 $(function() {
-  if (typeof input !== "undefined") {
+  if (typeof Chart !== "undefined") {
     Chart.defaults.global.customTooltips = function(tooltip) {
       // Tooltip Element
       var tooltipEl = $('#chartjs-tooltip');
