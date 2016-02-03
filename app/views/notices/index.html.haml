@@ -35,7 +35,7 @@
     %th Created at
     %th User agent
     %th app_version
-    -# %th
+    %th HTTP_X_FORWARDED_FOR
   - @notices.each do |notice|
     %tr
       %td
@@ -44,8 +44,9 @@
       %td= notice.user_attributes
       %td= link_to notice.host, "//#{notice.host}"
       %td= link_to nil, notice.url
-      %td= notice.created_at
+      %td= notice.created_at.to_s(:precise)
       %td= notice.user_agent_string
       %td= notice.app_version
+      %td= notice.env_vars['HTTP_X_FORWARDED_FOR']
       -# %td= notice.inspect
 = paginate @notices
