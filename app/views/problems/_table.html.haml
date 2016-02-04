@@ -34,6 +34,9 @@
                   datasets: [
                     {
                       data: #{notices.flat_map(&:values).to_json},
+                      borderWidth: 2,
+                      hoverBorderColor: "#0069cc",
+                      hoverBackgroundColor: "#0069cc"
                     }]
                 };
                 var barChart = new Chart($("#bar-#{problem.id}"), {
@@ -42,6 +45,7 @@
                   options: {
                     scales: {
                       xAxes: [{
+                        categoryPercentage: 1,
                         display: false
                       }],
                       yAxes: [{
