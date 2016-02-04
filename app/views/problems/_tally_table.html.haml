@@ -20,35 +20,33 @@
           %td.percent= number_to_percentage(row[0], :precision => 1)
           %th.value= row[1]
 :javascript
-  $(function() {
-    var data = {
-      labels: #{rows.map(&:last).to_json},
-      datasets: [
-        {
-          data: #{rows.map(&:first).to_json},
-          backgroundColor: [
-            "#F7464A",
-            "#46BFBD",
-            "#FDB45C"
-          ],
-          hoverBackgroundColor: [
-            "#FF5A5E",
-            "#5AD3D1",
-            "#FFC870"
-          ]
-        }]
-    };
-    var myDoughnutChart = new Chart($("##{chart_id}"), {
-      type:'doughnut',
-      data: data,
-      options: {
-        tooltips: {
-          enabled: false,
-          custom: Chart.defaults.global.customTooltips
-        },
-        legend: {
-          display: false
-        }
+  var data = {
+    labels: #{rows.map(&:last).to_json},
+    datasets: [
+      {
+        data: #{rows.map(&:first).to_json},
+        backgroundColor: [
+          "#F7464A",
+          "#46BFBD",
+          "#FDB45C"
+        ],
+        hoverBackgroundColor: [
+          "#FF5A5E",
+          "#5AD3D1",
+          "#FFC870"
+        ]
+      }]
+  };
+  var myDoughnutChart = new Chart($("##{chart_id}"), {
+    type:'doughnut',
+    data: data,
+    options: {
+      tooltips: {
+        enabled: false,
+        custom: Chart.defaults.global.customTooltips
+      },
+      legend: {
+        display: false
       }
-    });
+    }
   });

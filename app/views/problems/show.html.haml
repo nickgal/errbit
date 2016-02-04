@@ -56,37 +56,35 @@
 %div
   %canvas{ id: "bar-#{problem.id}",height: 200 }
 :javascript
-  $(function() {
-    var data = {
-      labels: #{@notice_counts.flat_map(&:keys).to_json},
-      datasets: [
-        {
-          data: #{@notice_counts.flat_map(&:values).to_json},
-          borderWidth: 2,
-          hoverBorderColor: "#0069cc",
-          hoverBackgroundColor: "#0069cc"
-        }]
-    };
-    var barChart = new Chart($("#bar-#{problem.id}"), {
-      type:'bar',
-      data: data,
-      options: {
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [{
-            categoryPercentage: 1,
-            display: false
-          }]
-        },
-        tooltips: {
-          enabled: false,
-          custom: Chart.defaults.global.customTooltips
-        },
-        legend: {
+  var data = {
+    labels: #{@notice_counts.flat_map(&:keys).to_json},
+    datasets: [
+      {
+        data: #{@notice_counts.flat_map(&:values).to_json},
+        borderWidth: 2,
+        hoverBorderColor: "#0069cc",
+        hoverBackgroundColor: "#0069cc"
+      }]
+  };
+  var barChart = new Chart($("#bar-#{problem.id}"), {
+    type:'bar',
+    data: data,
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        xAxes: [{
+          categoryPercentage: 1,
           display: false
-        }
+        }]
+      },
+      tooltips: {
+        enabled: false,
+        custom: Chart.defaults.global.customTooltips
+      },
+      legend: {
+        display: false
       }
-    });
+    }
   });
 
 = paginate @notices, :param_name => :notice, :theme => :notices
