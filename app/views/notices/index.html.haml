@@ -24,31 +24,31 @@
   %br
   = render "problems/issue_tracker_links"
 
-
-%table
-  %tr
-    %th ID
-    %th Message
-    %th User
-    %th Host
-    %th Url
-    %th Created at
-    %th User agent
-    %th app_version
-    %th HTTP_X_FORWARDED_FOR
-    %th Params
-  - @notices.each do |notice|
+.window
+  %table
     %tr
-      %td
-        = notice.id
-      %td= notice.message
-      %td= notice.user_attributes
-      %td= link_to notice.host, "//#{notice.host}"
-      %td= link_to nil, notice.url
-      %td= notice.created_at.to_s(:precise)
-      %td= notice.user_agent_string
-      %td= notice.app_version
-      %td= notice.env_vars['HTTP_X_FORWARDED_FOR']
-      %td= notice.params
-      -# %td= notice.inspect
+      %th ID
+      %th Message
+      %th User
+      %th Host
+      %th Url
+      %th Created at
+      %th User agent
+      %th app_version
+      %th HTTP_X_FORWARDED_FOR
+      %th Params
+    - @notices.each do |notice|
+      %tr
+        %td
+          = notice.id
+        %td= notice.message
+        %td= notice.user_attributes
+        %td= link_to notice.host, "//#{notice.host}"
+        %td= link_to nil, notice.url
+        %td= notice.created_at.to_s(:precise)
+        %td= notice.user_agent_string
+        %td= notice.app_version
+        %td= notice.env_vars['HTTP_X_FORWARDED_FOR']
+        %td= notice.params
+        -# %td= notice.inspect
 = paginate @notices
