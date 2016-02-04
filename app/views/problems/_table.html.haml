@@ -5,6 +5,7 @@
       %tr
         %th= check_box_tag "toggle_problems_checkboxes"
         %th= link_for_sort "App"
+        %th Recent
         %th= link_for_sort "What &amp; Where".html_safe, "message"
         %th= link_for_sort "Latest", "last_notice_at"
         %th= link_for_sort "Count"
@@ -22,6 +23,42 @@
               %span.environment= link_to problem.environment, problems_path(:environment => problem.environment)
             - else
               %span.environment= link_to problem.environment, app_path(problem.app, :environment => problem.environment)
+          %td
+            %div{ style: 'width: 100px;' }
+              %canvas{ id: "bar-#{problem.id}" }
+            - notices = problem.notice_count_by(:day)
+            :javascript
+              $(function() {
+                var data = {
+                  labels: #{notices.flat_map(&:keys).to_json},
+                  datasets: [
+                    {
+                      data: #{notices.flat_map(&:values).to_json},
+                    }]
+                };
+                var barChart = new Chart($("#bar-#{problem.id}"), {
+                  type:'bar',
+                  data: data,
+                  options: {
+                    scales: {
+                      xAxes: [{
+                        display: false
+                      }],
+                      yAxes: [{
+                        display: false
+                      }]
+                    },
+                    tooltips: {
+                      enabled: false,
+                      custom: Chart.defaults.global.customTooltips
+                    },
+                    legend: {
+                      display: false
+                    }
+                  }
+                });
+              });
+
           %td.message
             = link_to app_problem_path(problem.app, problem), title: problem.message do
               = "#{problem.error_class} : #{problem.message}"

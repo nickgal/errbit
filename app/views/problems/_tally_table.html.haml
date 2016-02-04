@@ -38,7 +38,7 @@
           ]
         }]
     };
-    window.myDoughnutChart = new Chart($("##{chart_id}"), {
+    var myDoughnutChart = new Chart($("##{chart_id}"), {
       type:'doughnut',
       data: data,
       options: {

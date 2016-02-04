@@ -170,6 +170,53 @@ class Problem
     Notice.for_errs(errs).ordered
   end
 
+  def notice_count_by(group_by = :day, limit_number = 15)
+    match = {
+      '$match': {
+        "err_id": { '$in': errs.all.map(&:id) }
+      }
+    }
+    project = {
+      '$project': {
+        year:  { '$year':  '$created_at' }
+      }
+    }
+    project[:'$project'][:month] = {
+      '$month': '$created_at'
+    } if group_by == :day || group_by == :month
+    project[:'$project'][:day] = {
+      '$dayOfMonth': '$created_at'
+    } if group_by == :day
+    group = {
+      '$group': {
+        '_id': { year: '$year', month: '$month', day: '$day' },
+        notices: { '$sum': 1 }
+      }
+    }
+    limit = {
+      '$limit': limit_number
+    }
+    sort = {
+      '$sort': {
+        notices: -1
+      }
+    }
+    results_hash = Hash.new
+    results = Notice.collection.aggregate([match, project, group, limit, sort])
+    results.each do |result|
+      date = Date.new(
+        result['_id']['year'],
+        result['_id'].fetch('month', 1),
+        result['_id'].fetch('day', 1)
+      )
+      results_hash[date] = result['notices']
+    end
+    dates = ((Date.today - limit_number.public_send(group_by))..Date.today).to_a
+    dates.map do |day|
+      { day => results_hash[day] || 0}
+    end
+  end
+
   def resolve!
     self.update_attributes!(resolved: true, resolved_at: Time.zone.now)
   end

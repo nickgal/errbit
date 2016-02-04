@@ -21,6 +21,9 @@
     = link_to t('.unwatch'), app_watcher_path(app_id: app, id: current_user.id), method: :delete, class: 'button'
   - else
     = link_to t('.watch'), app_watcher_path(app_id: app, id: current_user.id), method: :put, class: 'button'
+- content_for :js do
+  = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'
+  = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.0-beta2/Chart.min.js'
 
 %h3#watchers_toggle
   =t('.watchers')
@@ -69,4 +72,3 @@
 - else
   %h3.clear=t('.no_error_yet')
   = render 'configuration_instructions', :app => app
-
