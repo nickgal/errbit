@@ -51,6 +51,7 @@ class ProblemsController < ApplicationController
     @notices = problem.object.notices.reverse_ordered.
       page(params[:notice]).per(1)
     @notice  = NoticeDecorator.new @notices.first
+    @notice_counts = problem.notice_count_by(:day, 90)
     @comment = Comment.new
   end
 
