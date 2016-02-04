@@ -1,6 +1,3 @@
-- content_for :js do
-  = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'
-  = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.0-beta2/Chart.min.js'
 - content_for :page_title, problem.message
 - content_for :title_css_class, "err_show #{'resolved' if problem.resolved?}"
 - content_for :title, problem.error_class || truncate(problem.message, :length => 32)
