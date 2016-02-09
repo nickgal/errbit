@@ -7,9 +7,10 @@ class Problem
   include Mongoid::Timestamps
 
   CACHED_NOTICE_ATTRIBUTES = {
-    messages:    :message,
-    hosts:       :host,
-    user_agents: :user_agent_string
+    messages:        :message,
+    hosts:           :host,
+    user_agents:     :user_agent_string,
+    user_attributes: :user_attributes_string
   }.freeze
 
   field :last_notice_at, type: ActiveSupport::TimeWithZone, default: proc { Time.zone.now }
@@ -26,6 +27,7 @@ class Problem
   field :environment
   field :error_class
   field :where
+  field :user_attributes, type: Hash, default: {}
   field :user_agents, type: Hash, default: {}
   field :messages,    type: Hash, default: {}
   field :hosts,       type: Hash, default: {}
@@ -78,25 +80,28 @@ class Problem
     message_digest = Digest::MD5.hexdigest(notice.message)
     host_digest = Digest::MD5.hexdigest(notice.host)
     user_agent_digest = Digest::MD5.hexdigest(notice.user_agent_string)
+    user_attributes_digest = Digest::MD5.hexdigest(notice.user_attributes_string)
 
     Problem.where('_id' => id).find_one_and_update({
       '$set' => {
-        'environment'                            => notice.environment_name,
-        'error_class'                            => notice.error_class,
-        'last_notice_at'                         => notice.created_at.utc,
-        'message'                                => notice.message,
-        'resolved'                               => false,
-        'resolved_at'                            => nil,
-        'where'                                  => notice.where,
-        "messages.#{message_digest}.value"       => notice.message,
-        "hosts.#{host_digest}.value"             => notice.host,
-        "user_agents.#{user_agent_digest}.value" => notice.user_agent_string
+        'environment'                                     => notice.environment_name,
+        'error_class'                                     => notice.error_class,
+        'last_notice_at'                                  => notice.created_at.utc,
+        'message'                                         => notice.message,
+        'resolved'                                        => false,
+        'resolved_at'                                     => nil,
+        'where'                                           => notice.where,
+        "messages.#{message_digest}.value"                => notice.message,
+        "hosts.#{host_digest}.value"                      => notice.host,
+        "user_agents.#{user_agent_digest}.value"          => notice.user_agent_string,
+        "user_attributes.#{user_attributes_digest}.value" => notice.user_attributes_string
       },
       '$inc' => {
-        'notices_count'                          => 1,
-        "messages.#{message_digest}.count"       => 1,
-        "hosts.#{host_digest}.count"             => 1,
-        "user_agents.#{user_agent_digest}.count" => 1
+        'notices_count'                                   => 1,
+        "messages.#{message_digest}.count"                => 1,
+        "hosts.#{host_digest}.count"                      => 1,
+        "user_agents.#{user_agent_digest}.count"          => 1,
+        "user_attributes.#{user_attributes_digest}.count" => 1
       }
     }, return_document: :after)
   end

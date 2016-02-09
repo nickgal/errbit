@@ -53,6 +53,14 @@ class Notice
     end
   end
 
+  def user_attributes_string
+    if user_attributes.nil? || user_attributes.none?
+      "N/A"
+    else
+      "#{user_attributes['name']} <#{user_attributes['email']}> ##{user_attributes['id']}"
+    end
+  end
+
   def environment_name
     n = server_environment['server-environment'] || server_environment['environment-name']
     n.blank? ? 'development' : n

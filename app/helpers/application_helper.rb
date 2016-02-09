@@ -27,6 +27,10 @@ module ApplicationHelper
     create_percentage_table_for(problem.hosts)
   end
 
+  def user_graph(problem)
+    create_percentage_table_for(problem.user_attributes)
+  end
+
   def create_percentage_table_for(collection)
     create_percentage_table_from_tallies(tally(collection))
   end

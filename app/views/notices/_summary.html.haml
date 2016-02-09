@@ -28,6 +28,9 @@
     %tr
       %th Tenant
       %td= tenant_graph(problem)
+    %tr
+      %th User
+      %td= user_graph(problem)
     - if notice.server_environment && notice.server_environment["hostname"]
       %tr
         %th App Server
@@ -43,4 +46,3 @@
     %tr
       %th Rel. Directory
       %td= notice.server_environment && notice.server_environment["project-root"]
-
