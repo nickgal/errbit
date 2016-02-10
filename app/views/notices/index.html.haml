@@ -42,7 +42,7 @@
         %td
           = notice.id
         %td= notice.message
-        %td= notice.user_attributes
+        %td= notice.user_attributes_string
         %td= link_to notice.host, "//#{notice.host}"
         %td= link_to nil, notice.url
         %td= notice.created_at.to_s(:precise)
