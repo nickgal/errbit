@@ -111,6 +111,11 @@ class Notice
     vars.is_a?(Hash) ? vars : {}
   end
 
+  def ip
+    forwarded_for = env_vars['HTTP_X_FORWARDED_FOR'] || []
+    forwarded_for.split(',').first || env_vars['REMOTE_ADDR']
+  end
+
   def params
     request['params'] || {}
   end

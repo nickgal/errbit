@@ -48,7 +48,7 @@
         %td= notice.created_at.to_s(:precise)
         %td= notice.user_agent_string
         %td= notice.app_version
-        %td= notice.env_vars['HTTP_X_FORWARDED_FOR']
+        %td= notice.ip
         %td= notice.params
         -# %td= notice.inspect
 = paginate @notices
