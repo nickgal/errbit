@@ -1,0 +1,20 @@
+version: '2'
+services:
+  box:
+    image: busybox
+    volumes:
+      - /box
+  db:
+    image: mongo:3.2
+    ports:
+      - "27017:27017"
+  web:
+    build: .
+    # command: tail -f /dev/null # use to prevent container from exiting
+    command: ./bin/docker
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
