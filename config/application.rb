@@ -48,5 +48,7 @@ module Errbit
 
     # Configure Devise mailer to use our mailer layout.
     config.to_prepare { Devise::Mailer.layout 'mailer' }
+
+    config.middleware.use Rack::Attack if defined?(Rack::Attack)
   end
 end

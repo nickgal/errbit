@@ -1,1 +1,2 @@
 gem 'errbit_gitlab_plugin'
+gem 'rack-attack'
