@@ -18,7 +18,10 @@ gem 'railties', RAILS_VERSION
 
 gem 'actionmailer_inline_css'
 gem 'decent_exposure'
-gem 'devise', '~> 3.5.5'
+# gem 'devise', '~> 3.5.5'
+# https://github.com/plataformatec/devise/issues/4630
+gem 'devise', github: 'plataformatec/devise', branch: '3-stable'
+
 gem 'dotenv-rails'
 gem 'draper'
 gem 'errbit_plugin'
