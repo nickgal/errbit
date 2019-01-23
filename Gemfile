@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-RAILS_VERSION = '~> 4.2.8'
+RAILS_VERSION = '~> 4.2.10'
 
 send :ruby, ENV['GEMFILE_RUBY_VERSION'] if ENV['GEMFILE_RUBY_VERSION']
 
@@ -88,7 +88,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec', '~> 3.3'
+  gem 'rspec', '~> 3.5'
   gem 'rspec-rails', '~> 3.0', require: false
   gem 'rspec-activemodel-mocks'
   gem 'rspec-its'
