@@ -14,7 +14,7 @@ if defined? Rack::Attack
 
   Rack::Attack.blocklist('api only') do |req|
     # block everything except posts to the api endpoint
-    if req.post? && req.path =~ /^\/api\/v3\/projects\//
+    if req.post? && (req.path =~ /^\/api\/v3\/projects\// || req.path =~ /^\/notifier_api\/v2\/notices\//)
       false # don't block
     else
       true # block
