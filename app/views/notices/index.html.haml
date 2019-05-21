@@ -52,3 +52,9 @@
         %td= notice.params
         -# %td= notice.inspect
 = paginate @notices
+
+:css
+  #notices table th, #notices table td {
+    max-width: 150px;
+    overflow: auto;
+  }
